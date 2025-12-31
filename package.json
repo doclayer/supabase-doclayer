@@ -1,0 +1,82 @@
+{
+  "name": "@doclayer/supabase",
+  "version": "0.1.0",
+  "description": "Supabase integration for Doclayer - document processing, webhooks, and real-time status updates",
+  "keywords": [
+    "doclayer",
+    "supabase",
+    "document-processing",
+    "ocr",
+    "pdf",
+    "extraction",
+    "webhooks",
+    "realtime"
+  ],
+  "homepage": "https://github.com/doclayer/doclayer/tree/main/integrations/supabase-doclayer",
+  "bugs": {
+    "url": "https://github.com/doclayer/doclayer/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/doclayer/doclayer.git",
+    "directory": "integrations/supabase-doclayer"
+  },
+  "license": "MIT",
+  "author": "Doclayer <support@doclayer.io>",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./client": {
+      "types": "./dist/doclayer-client.d.ts",
+      "import": "./dist/doclayer-client.js",
+      "require": "./dist/doclayer-client.cjs"
+    },
+    "./react": {
+      "types": "./dist/use-doclayer-realtime.d.ts",
+      "import": "./dist/use-doclayer-realtime.js",
+      "require": "./dist/use-doclayer-realtime.cjs"
+    }
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "migrations",
+    "supabase",
+    "README.md",
+    "SETUP.md"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "lint": "eslint lib --ext .ts,.tsx",
+    "prepublishOnly": "npm run build",
+    "typecheck": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "@supabase/supabase-js": "^2.0.0",
+    "react": "^18.0.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@supabase/supabase-js": "^2.45.0",
+    "@types/node": "^20.0.0",
+    "@types/react": "^18.0.0",
+    "eslint": "^8.0.0",
+    "react": "^18.0.0",
+    "tsup": "^8.0.0",
+    "typescript": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
