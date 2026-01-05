@@ -1,9 +1,16 @@
 /**
  * Doclayer TypeScript Client for Supabase Edge Functions
- * 
+ *
  * A lightweight, fully-typed client for interacting with the Doclayer API
  * from Supabase Edge Functions or any Deno/Node.js environment.
  */
+
+// Declare Deno for TypeScript (only available in Deno runtime)
+declare const Deno: {
+  env: {
+    get(key: string): string | undefined;
+  };
+} | undefined;
 
 // ============================================================================
 // Types
@@ -469,15 +476,26 @@ export class DoclayerError extends Error {
 
 /**
  * Create a Doclayer client from environment variables
+ * Works in both Deno and Node.js environments
  */
 export function createDoclayerClient(): DoclayerClient {
-  const apiKey = Deno.env.get('DOCLAYER_API_KEY');
+  // Try Deno first, then fall back to Node.js process.env
+  const apiKey =
+    typeof Deno !== 'undefined'
+      ? Deno.env.get('DOCLAYER_API_KEY')
+      : process.env.DOCLAYER_API_KEY;
+
   if (!apiKey) {
     throw new Error('DOCLAYER_API_KEY environment variable is required');
   }
 
+  const baseUrl =
+    typeof Deno !== 'undefined'
+      ? Deno.env.get('DOCLAYER_API_URL')
+      : process.env.DOCLAYER_API_URL;
+
   return new DoclayerClient({
     apiKey,
-    baseUrl: Deno.env.get('DOCLAYER_API_URL') || 'https://api.doclayer.ai',
+    baseUrl: baseUrl || 'https://api.doclayer.ai',
   });
 }
